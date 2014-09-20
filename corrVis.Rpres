@@ -1,0 +1,63 @@
+Stock Daily Returns Correlation Vis
+========================================================
+author: Developing Data Products Project
+date:  September, 2014
+
+Introduction
+========================================================
+
+- Often it is helpful to know the correlation between daily returns of one stock versus another stock to compare the relative investment return values between the two.
+- This app will downlad end of day data for the two stocks you have selected and then calculate daily returns and correlation between the daily returns.
+- Furthermore, this app will plot daily returns of two stocks and display a linear regression fit between the two data sets in order to visualize the relationship between the two stocks.
+
+Data
+========================================================
+
+<ul>
+<li> End of day stock data is downloaded from Yahoo Finance.
+
+<li> Daily adjusted close values are used to calculate daily return values.
+
+<li> Daily return of a stock is defined as 
+      <code> [Today's Close Price / Yesterday's Close Price] - 1</code>
+</ul> 
+
+Correlation Calculation
+========================================================
+<b>quantmod</b> library is used to download data from Yahoo Finance. <code>Delt()</code> function call is used to calculate daily returns.
+
+```{r, echo=FALSE}
+library(quantmod)
+library(ggplot2) 
+```
+
+```{r,warning=FALSE}
+data1 <- getSymbols("MSFT", src = "yahoo", from = "2014-06-01", to = "2014-08-01", 
+                    auto.assign = FALSE)
+data2 <- getSymbols("INTC", src = "yahoo", from = "2014-06-01", to = "2014-08-01", 
+                    auto.assign = FALSE)
+
+data1 <- as.numeric(Delt(data1[,4]))
+data2 <- as.numeric(Delt(data2[,4]))
+```
+
+```{r, echo=FALSE}
+data1[1] = 0
+data2[1] = 0
+```
+
+
+```{r}
+cor(data1, data2)
+```
+
+Example
+========================================================
+The app is located at
+https://mlwin.shinyapps.io/Project/
+
+To use this app, please enter two valid stock symbols from Yahoo Finance and select a desired date range.
+
+For example, please enter <b>HD</b> in Stock 1 text box and <b>LOW</b> in Stock 2 text box to visualize daily returns correlation between Home Depot and Lowe's stocks.
+
+Thank You !
