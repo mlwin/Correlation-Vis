@@ -7,8 +7,7 @@ shinyUI(fluidPage(
   
   sidebarLayout(
     sidebarPanel(
-      helpText("Enter two stocks to examine. 
-        Information will be collected from yahoo finance."),
+      helpText("Please enter two stock symbols below to examine their correlation. (Stock data is downloaded from Yahoo Finance and only the valid stock symbols should be entered.)"),
       
       textInput("symb1", "Stock 1", "XLI"),
       
